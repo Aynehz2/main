@@ -1,0 +1,43 @@
+1
+ DELIMITER //
+ create function Func1Nikiforov(format_date date) returns varchar(50)
+ begin
+ declare y int;
+ declare m int;
+ declare d int;
+ declare res varchar(50);
+ set y = year(format_date);
+ set m = month(format_date);
+ set d = day(format_date);
+ set result = concat(d,'.',m,'.',y);
+ return result;
+ end //
+ DELIMITER ; 
+
+2
+   DELIMITER // 
+   create function Func2Nikiforov() returns varchar(50)
+   begin
+   set @amount = (select COUNT(student.fio)  from student join s_kolleges on student.Kod_uz = s_kolleges.Kod_uz where s_kolleges.Name_Kollege = "Индустриальный колледж" and student.fio like "П%");
+   return @amount;
+   end 
+   DELIMITER ;
+3 
+ 
+ DELIMITER // 
+   create function Func3Nikiforov(grup varchar(10)) returns float
+   begin
+   set @stip = (select sum(Stipendiya) from student where Gruppa = grup);
+   RETURN @stip;
+   end
+   DELIMITER ;
+4
+
+DELIMITER // 
+   create function Func4Nikiforov(kollg varchar(50)) returns int
+   begin
+   set @amount_stud = (select COUNT(student.fio)  from student join s_kolleges on student.Kod_uz = s_kolleges.Kod_uz where s_kolleges.Name_Kollege = kollg);
+   return @amount_stud;
+   end //
+   DELIMITER ;
+   
